@@ -31,8 +31,8 @@ function getFeed(feed) {
       post = iter.data
       //post = data[i]['data']
       out += "<div class='post' id='post-" + i + "' show='false'><hr>" + post.score + ": "
-      out += "<a id='" + i + "' href='" + post.url + "'>" + post.title + "</a> "
-      out += "<br><small>/r/" + post.subreddit + "</small> "
+      out += "<a id='" + i + "' href='" + post.url + "' class='link'>" + post.title + "</a> "
+      out += "<br><small><a href='http://reddit.com/r/" + post.subreddit + "/hot.json?jsonp=?' class='subreddit'>/r/" + post.subreddit + "</a></small> "
       out += post.author + "<br>"
       out += "</div>"
       //*/
@@ -40,7 +40,7 @@ function getFeed(feed) {
 
     $(".reader").append(out)
 
-    $("a").click(function(event) {
+    $("a.link").click(function(event) {
       event.preventDefault()
 
       console.log(event)
@@ -70,6 +70,12 @@ function getFeed(feed) {
         $("#post-" + link.id).attr("show", "false")
       }
 
+    })
+
+    $("a.subreddit").click(function(event) {
+      event.preventDefault()
+
+      getFeed(event.currentTarget.href)
     })
   })
 }
