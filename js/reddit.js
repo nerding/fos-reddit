@@ -1,3 +1,5 @@
+//feed = 'http://reddit.com/hot.json?jsonp=?'
+
 $(document).ready(function() {
   $(".reader").css('margin-top', $(".top").outerHeight())
 
@@ -7,7 +9,17 @@ $(document).ready(function() {
     $(".reader").show()
   })
 
-  $.getJSON('http://reddit.com/hot.json?jsonp=?', function(data) {
+  hotStuff()
+})
+
+function closeFrames() {
+  $("iframe").remove()
+  $(".post").attr("show", "false")
+}
+
+function getFeed(feed) {
+  $(".reader").html("")
+  $.getJSON(feed, function(data) {
     //$(".prettyprint").append(prettyPrint(data.data))
 
     console.log(data.data)
@@ -60,9 +72,11 @@ $(document).ready(function() {
 
     })
   })
-});
+}
 
-function closeFrames() {
-  $("iframe").remove()
-  $(".post").attr("show", "false")
+function hotStuff() {
+  getFeed('http://reddit.com/hot.json?jsonp=?')
+}
+function newStuff() {
+  getFeed('http://reddit.com/new.json?jsonp=?')
 }
