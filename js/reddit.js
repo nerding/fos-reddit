@@ -41,9 +41,17 @@ $(document).ready(function() {
       link = event.currentTarget
       //console.log((".post-" + link.id))
       if ($("#post-" + link.id).attr("show") === "false") {
-        $("#post-" + link.id).append("<iframe src='" + link.href + "' id='frame-" + link.id + "'/>")
-        $("#frame-" + link.id).css("height", $(window).height() - $(".top").outerHeight())
+        frame = $("<iframe/>", {
+          id: 'frame-' + link.id,
+          src: link.href,
+
+        }).css("height", $(window).height() - $(".top").outerHeight() - $("#post-" + link.id).outerHeight())
+
+        //$("#post-" + link.id).append("<iframe src='" + link.href + "' id='frame-" + link.id + "'/>")
+        //$("#frame-" + link.id).css("height", $(window).height() - $(".top").outerHeight())
+        $("#post-" + link.id).append(frame)
         $("#post-" + link.id).attr("show", "true")
+        $(window).scrollTop($("#post-" + link.id).position().top - $(".top").outerHeight())
       }
       else {
         $("#frame-" + link.id).remove();
@@ -53,3 +61,8 @@ $(document).ready(function() {
     })
   })
 });
+
+function closeFrames() {
+  $("iframe").remove()
+  $(".post").attr("show", "false")
+}
