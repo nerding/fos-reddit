@@ -1,0 +1,7 @@
+{
+  "version": "0.0.1alpha",
+  "name": "Clean Reddit?",
+  "description": "A nice'n'clean reddit",
+  "launch_path": "index.html",
+  "installs_allowed_from": ["*"]
+}
